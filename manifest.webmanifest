@@ -1,0 +1,19 @@
+{
+  "name": "Учебный огонёк",
+  "short_name": "Огонёк",
+  "description": "Учёба как игра: серия, квесты, ачивки и награды.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08090d",
+  "theme_color": "#08090d",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
