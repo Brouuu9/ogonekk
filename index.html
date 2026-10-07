@@ -230,17 +230,17 @@ function toggleThemes(){let o=document.getElementById('themePicker'),h=document.
 function setTheme(t){data.theme=t;applyTheme();save();renderThemes();toast('🎨 Тема изменена')}
 
 const wheelPrizes=[
-{id:'boost',e:'⚡',name:'Буст XP',type:'boost'},
-{id:'titleFire',e:'🏷️',name:'Титул «Огненный»',type:'titleFire'},
-{id:'chest',e:'🎁',name:'Кейс «Огонёк»',type:'chest'},
-{id:'shield',e:'🛡️',name:'Щит серии',type:'shield'},
-{id:'freeze',e:'🧊',name:'Заморозка серии',type:'freeze'},
-{id:'goldTicket',e:'🎟️',name:'Золотой билет',type:'goldTicket'},
-{id:'neon',e:'🌈',name:'Неоновый профиль',type:'neon'},
-{id:'epicCase',e:'💜',name:'Эпический кейс',type:'epicCase'},
-{id:'titleGigachad',e:'🗿',name:'Титул «Гигачад»',type:'rareTitle',title:'Гигачад'},
-{id:'titleLudoman',e:'🎰',name:'Титул «Лудоман»',type:'rareTitle',title:'Лудоман'},
-{id:'titlePickme',e:'💅',name:'Титул «Пикми»',type:'rareTitle',title:'Пикми'}
+{id:'boost',e:'⚡',name:'Буст XP',type:'boost',color:'#ff6500'},
+{id:'titleFire',e:'🏷️',name:'Титул «Огненный»',type:'titleFire',color:'#ffc44d'},
+{id:'chest',e:'🎁',name:'Кейс «Огонёк»',type:'chest',color:'#5aa9ff'},
+{id:'shield',e:'🛡️',name:'Щит серии',type:'shield',color:'#42e58b'},
+{id:'freeze',e:'🧊',name:'Заморозка серии',type:'freeze',color:'#00d9ff'},
+{id:'goldTicket',e:'🎟️',name:'Золотой билет',type:'goldTicket',color:'#ff9f1c'},
+{id:'neon',e:'🌈',name:'Неоновый профиль',type:'neon',color:'#ff4d8d'},
+{id:'epicCase',e:'💜',name:'Эпический кейс',type:'epicCase',color:'#a66cff'},
+{id:'titleGigachad',e:'🗿',name:'Титул «Гигачад»',type:'rareTitle',title:'Гигачад',color:'#8b8f98'},
+{id:'titleLudoman',e:'🎰',name:'Титул «Лудоман»',type:'rareTitle',title:'Лудоман',color:'#e63946'},
+{id:'titlePickme',e:'💅',name:'Титул «Пикми»',type:'rareTitle',title:'Пикми',color:'#ffffff'}
 ];
 function wheelAvailablePrizes(){
   return wheelPrizes.filter(x=>{
@@ -256,9 +256,8 @@ function renderWheel(){
   const available=wheelAvailablePrizes();
   list.innerHTML=available.map(x=>`<div class="wheelPrize">${x.e} ${x.name}<span>награда из магазина</span></div>`).join('');
   if(wheel){
-    const colors=['#ff6500','#20222c','#ffc44d','#5aa9ff','#a66cff','#42e58b','#ff4d8d','#7c7cff'];
     const step=360/Math.max(1,available.length);
-    wheel.style.background='conic-gradient('+available.map((x,i)=>`${colors[i%colors.length]} ${i*step}deg ${(i+1)*step}deg`).join(',')+')';
+    wheel.style.background='conic-gradient('+available.map((x,i)=>`${x.color} ${i*step}deg ${(i+1)*step}deg`).join(',')+')';
   }
   const spun=data.wheel&&data.wheel.last===today();
   const empty=available.length===0;
