@@ -269,12 +269,10 @@ function renderWheel(){
 function grantWheelPrize(prize){
   if(prize.type==='boost')data.xp+=40;
   if(prize.type==='titleFire'){if(!data.titles.includes('Огненный'))data.titles.push('Огненный');data.title='Огненный';}
-  if(prize.type==='chest'){data.coins+=100;}
   if(prize.type==='shield')data.restores=Math.min(4,(data.restores||0)+1);
   if(prize.type==='freeze')data.freezes=(data.freezes||0)+1;
   if(prize.type==='goldTicket')data.goldTickets=(data.goldTickets||0)+1;
   if(prize.type==='neon')data.neonProfile=true;
-  if(prize.type==='epicCase'){data.coins+=300;}
   levelInfo();
 }
 function spinDailyWheel(){
@@ -313,13 +311,18 @@ function spinDailyWheel(){
   wheel.classList.add('spinning');
   result.textContent='🎡 Колесо вращается...';
   setTimeout(()=>{
-    if(prize.type!=='businessman')grantWheelPrize(prize);
+    const isCase=prize.type==='chest'||prize.type==='epicCase';
+    if(prize.type!=='businessman'&&!isCase)grantWheelPrize(prize);
     save();render();
-    result.textContent='🎉 Выпало: '+prize.e+' '+prize.name;
+    result.textContent=isCase?'🎁 Выпал кейс! Открываем...':'🎉 Выпало: '+prize.e+' '+prize.name;
     window.wheelBusy=false;
     renderWheel();
     celebrate();beep('level');buzz(70);
-    toast(prize.type==='businessman'?'👑 НЕВЕРОЯТНО! Титул получен!':prize.type==='rareTitle'?'✨ РЕДКИЙ ТИТУЛ!':'🎁 Награда получена!');
+    if(isCase){
+      setTimeout(()=>openCase(prize.type==='epicCase'?'epic':'normal'),450);
+    }else{
+      toast(prize.type==='businessman'?'👑 НЕВЕРОЯТНО! Титул получен!':prize.type==='rareTitle'?'✨ РЕДКИЙ ТИТУЛ!':'🎁 Награда получена!');
+    }
   },3300);
 }
 
